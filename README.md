@@ -26,7 +26,9 @@ You can also donate via BTC: `1M2RbhYU98fyi7fDFAKTSuv47ERGEJU5xN`.
 
 Currently building on Linux is supported, you may find some luck on macOS (PRs are welcomed). 
 
-You need CMake, gcc (obviously, but with plugins enabled) and (optionally) ninja.
+You need CMake, gcc (with plugins enabled) and (optionally) ninja.
+
+GCC >= 9.3.0 is required, GCC 10.1.0 is tested and working.
 
 ```
 $ mkdir build
@@ -133,6 +135,10 @@ If you ever get stuck, reference one of the existing passes, they're well docume
 3) Create a function `execute` in the corresponding C++ file, and complete your pass,
 4) Register it under the `PassManager` by adding a new option, `register_pass_info` and `register_callback`, as necessary,
 5) Submit the pass for review.
+
+Note that for as pass to be accepted upstream, it must compile for a `gcc` build that has `--enable-checking=yes,rtl,tree` added. (You will need to re-build `gcc` for your target architecture with `--enable-checking`.)
+
+Additionally: If you experience crashes when developing your plug-in, you can debug them by passing `-wrapper gdb,--args` to `gcc`. (Run `gcc` in `gdb`, effectively.)
 
 ### License
 
