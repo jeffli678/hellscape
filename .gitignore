@@ -148,3 +148,6 @@ _deps
 ### Extra ###
 *.png
 *.dot
+
+.vscode
+test_binaries/*
